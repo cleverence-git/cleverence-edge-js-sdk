@@ -1,0 +1,94 @@
+{
+  "name": "@cleverence-edge/js-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for Cleverence Edge - barcode scanning and RFID for web apps",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.cts",
+        "default": "./dist/react/index.cjs"
+      }
+    },
+    "./vue": {
+      "import": {
+        "types": "./dist/vue/index.d.ts",
+        "default": "./dist/vue/index.js"
+      },
+      "require": {
+        "types": "./dist/vue/index.d.cts",
+        "default": "./dist/vue/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "barcode",
+    "scanner",
+    "rfid",
+    "zebra",
+    "honeywell",
+    "datalogic",
+    "urovo",
+    "enterprise",
+    "mobile",
+    "pwa",
+    "android"
+  ],
+  "author": "Cleverence",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cleverence/edge-js-sdk.git"
+  },
+  "homepage": "https://cleverence.com/edge",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "vue": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.48",
+    "react": "^18.2.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0",
+    "vue": "^3.4.15"
+  }
+}
