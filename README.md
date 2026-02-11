@@ -1,4 +1,4 @@
-# @cleverence-edge/js-sdk
+# @cleverence/edge-js-sdk
 
 TypeScript SDK for [Cleverence Edge](https://cleverence.com/edge) - universal barcode scanning and RFID reading for web applications.
 
@@ -16,7 +16,7 @@ Connect your PWA, web app, or hybrid mobile app to enterprise barcode scanners a
 ## Installation
 
 ```bash
-npm install @cleverence-edge/js-sdk
+npm install @cleverence/edge-js-sdk
 ```
 
 ## Quick Start
@@ -24,7 +24,7 @@ npm install @cleverence-edge/js-sdk
 ### Vanilla JavaScript / TypeScript
 
 ```typescript
-import { CleverenceEdge } from '@cleverence-edge/js-sdk';
+import { CleverenceEdge } from '@cleverence/edge-js-sdk';
 
 const edge = new CleverenceEdge();
 
@@ -57,7 +57,7 @@ await edge.startRfidInventory({ power: 27 });
 ### React
 
 ```tsx
-import { EdgeProvider, useBarcode, useEdge } from '@cleverence-edge/js-sdk/react';
+import { EdgeProvider, useBarcode, useEdge } from '@cleverence/edge-js-sdk/react';
 
 function App() {
   return (
@@ -93,7 +93,7 @@ function Scanner() {
 
 ```vue
 <script setup>
-import { useEdge, useBarcode } from '@cleverence-edge/js-sdk/vue';
+import { useEdge, useBarcode } from '@cleverence/edge-js-sdk/vue';
 
 const { edge, isConnected, capabilities } = useEdge();
 const { lastScan, scanHistory, clearHistory } = useBarcode({ edge });
@@ -264,7 +264,7 @@ const {
 The Vue composables mirror the React hooks API but use Vue's reactivity system (`Ref<T>`).
 
 ```typescript
-import { useEdge, useBarcode, useRfid } from '@cleverence-edge/js-sdk/vue';
+import { useEdge, useBarcode, useRfid } from '@cleverence/edge-js-sdk/vue';
 
 const { edge, isConnected, capabilities } = useEdge();
 const { lastScan, scanHistory } = useBarcode({ edge });
