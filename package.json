@@ -65,6 +65,9 @@
   ],
   "author": "Cleverence",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cleverence/edge-js-sdk.git"

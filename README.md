@@ -19,6 +19,29 @@ Connect your PWA, web app, or hybrid mobile app to enterprise barcode scanners a
 npm install @cleverence/edge-js-sdk
 ```
 
+## Example App
+
+A complete React demo app is included in the `examples/react-demo` directory. This is a great starting point for your own application.
+
+```bash
+# Clone the repository
+git clone https://github.com/cleverence/edge-js-sdk
+cd edge-js-sdk
+
+# Run the example
+cd examples/react-demo
+npm install
+npm run dev
+```
+
+The example includes:
+- Connection status display
+- Barcode scanning with duplicate counting
+- RFID inventory (if device supports it)
+- Mobile-first responsive UI
+
+You can also try the live demo at [cleverence.com/demo-web-client](https://cleverence.com/demo-web-client).
+
 ## Quick Start
 
 ### Vanilla JavaScript / TypeScript

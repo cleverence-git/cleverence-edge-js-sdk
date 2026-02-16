@@ -86,7 +86,7 @@ export class WebSocketManager extends EventEmitter<WSManagerEvents> {
           resolve();
         };
 
-        const onError = (event: Event) => {
+        const onError = (_event: Event) => {
           this.ws?.removeEventListener('open', onOpen);
           const error = new Error('WebSocket connection failed');
           reject(error);
@@ -209,7 +209,7 @@ export class WebSocketManager extends EventEmitter<WSManagerEvents> {
     }
   }
 
-  private handleError(event: Event): void {
+  private handleError(_event: Event): void {
     const error = new Error('WebSocket error');
     this.emit('error', error);
   }
