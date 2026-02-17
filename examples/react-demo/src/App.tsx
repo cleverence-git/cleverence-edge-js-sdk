@@ -144,7 +144,7 @@ function RfidPanel() {
   const { tags, isInventoryActive, startInventory, stopInventory, clearTags } = useRfid();
 
   // Don't show if device doesn't have RFID
-  if (!capabilities?.hasRfid) {
+  if (!capabilities?.rfid) {
     return null;
   }
 
@@ -222,7 +222,7 @@ function Scanner() {
   const [activeTab, setActiveTab] = useState<'scanner' | 'rfid'>('scanner');
   const { capabilities } = useEdge();
 
-  const hasRfid = capabilities?.hasRfid;
+  const hasRfid = !!capabilities?.rfid;
 
   return (
     <div className="scanner-container">

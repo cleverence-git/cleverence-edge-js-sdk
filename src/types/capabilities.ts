@@ -1,22 +1,73 @@
 /**
- * Device capabilities reported by the Edge service on connection
+ * Barcode scanner capabilities
  */
-export interface DeviceCapabilities {
-  /** Device vendor: "zebra", "honeywell", "urovo", "datalogic", etc. */
-  vendor: string;
-  /** Device model name */
-  deviceModel: string;
-  /** Whether device has barcode scanning capability */
-  hasBarcode: boolean;
-  /** Whether device has RFID reading capability */
-  hasRfid: boolean;
+export interface BarcodeCapabilities {
+  /** How the scanner is connected: built-in hardware or external */
+  type: 'builtIn' | 'bluetooth' | 'usb';
+  /** Scanner vendor (may differ from device vendor for external scanners) */
+  vendor?: string;
+  /** Scanner model */
+  model?: string;
+  /** Can programmatically trigger a scan */
+  canToggle: boolean;
+  /** Scanner reports symbology type with each scan */
+  canReportSymbology: boolean;
+  /** Can enable/disable specific symbology types */
+  canToggleSymbologies: boolean;
   /** List of supported barcode symbologies */
   supportedSymbologies: string[];
-  /** RFID transmit power range in dBm (if RFID capable) */
-  rfidPowerRange?: {
+}
+
+/**
+ * RFID reader capabilities
+ */
+export interface RfidCapabilities {
+  /** How the reader is connected: built-in or external sled/dongle */
+  type: 'builtIn' | 'sled' | 'bluetooth' | 'usb';
+  /** RFID reader vendor (may differ from device vendor) */
+  vendor?: string;
+  /** RFID reader model (e.g., "RFD40") */
+  model?: string;
+  /** Can programmatically start/stop inventory */
+  canToggle: boolean;
+  /** Can adjust transmit power */
+  canConfigurePower: boolean;
+  /** Can configure session (S0-S3) */
+  canConfigureSession: boolean;
+  /** Transmit power range in dBm */
+  powerRange?: {
     min: number;
     max: number;
   };
+  /** Supported memory banks for read/write operations */
+  supportedMemoryBanks: string[];
+}
+
+/**
+ * NFC capabilities
+ */
+export interface NfcCapabilities {
+  /** Can programmatically toggle NFC */
+  canToggle: boolean;
+}
+
+/**
+ * Device capabilities reported by the Edge service on connection.
+ * Capabilities are dynamic - they update when Bluetooth peripherals connect/disconnect.
+ */
+export interface DeviceCapabilities {
+  /** Edge service version */
+  edgeVersion: string;
+  /** Base device vendor: "zebra", "honeywell", "urovo", "datalogic", etc. */
+  vendor: string;
+  /** Base device model name */
+  deviceModel: string;
+  /** Barcode scanner capabilities (null if no scanner available) */
+  barcode: BarcodeCapabilities | null;
+  /** RFID reader capabilities (null if no RFID available) */
+  rfid: RfidCapabilities | null;
+  /** NFC capabilities (null if no NFC available) */
+  nfc: NfcCapabilities | null;
   /** Firmware version if available */
   firmwareVersion?: string;
   /** Serial number if available */

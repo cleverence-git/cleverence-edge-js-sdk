@@ -85,11 +85,18 @@ function getMockResult(query: string): unknown {
   switch (query) {
     case 'capabilities':
       return {
+        edgeVersion: '1.0.0',
         vendor: 'zebra',
         deviceModel: 'TC52',
-        hasBarcode: true,
-        hasRfid: false,
-        supportedSymbologies: ['ean13', 'qrcode'],
+        barcode: {
+          type: 'builtIn',
+          canToggle: true,
+          canReportSymbology: true,
+          canToggleSymbologies: true,
+          supportedSymbologies: ['ean13', 'qrcode'],
+        },
+        rfid: null,
+        nfc: null,
       };
     case 'status':
       return {
@@ -241,7 +248,7 @@ describe('CleverenceEdge', () => {
     expect(caps).toMatchObject({
       vendor: 'zebra',
       deviceModel: 'TC52',
-      hasBarcode: true,
+      barcode: { type: 'builtIn' },
     });
     
     edge.disconnect();
