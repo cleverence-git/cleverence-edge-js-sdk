@@ -81,56 +81,32 @@ function ScanList() {
   const totalScans = scanHistory.length;
   const uniqueScans = sortedScans.length;
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit',
-      hour12: false 
-    });
-  };
-
   return (
     <div className="scan-panel">
-      <div className="scan-header">
-        <div className="scan-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-            <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-            <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-            <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-            <line x1="7" y1="12" x2="17" y2="12" />
-            <line x1="7" y1="8" x2="13" y2="8" />
-            <line x1="7" y1="16" x2="15" y2="16" />
-          </svg>
-        </div>
-        <span>Scan barcode</span>
-      </div>
-
       <div className="scan-summary">
-        <span>Scanned: {totalScans} total, {uniqueScans} unique</span>
-        {totalScans > 0 && (
-          <button className="clear-btn" onClick={clearHistory}>Clear</button>
-        )}
+        <span className="scan-summary-title">Barcodes</span>
+        <div className="scan-summary-right">
+          <span>{totalScans} scans · {uniqueScans} unique</span>
+          {totalScans > 0 && (
+            <button className="clear-link" onClick={clearHistory}>Clear</button>
+          )}
+        </div>
       </div>
 
       <div className="scan-list">
         {sortedScans.length === 0 ? (
           <div className="empty-state">
             <p>No scans yet</p>
-            <p className="hint">Use the hardware scanner to scan a barcode</p>
+            <p className="hint">Use the hardware scanner</p>
           </div>
         ) : (
-          sortedScans.map((scan) => (
-            <div key={scan.data} className="scan-item">
+          sortedScans.map((scan, i) => (
+            <div key={scan.data} className={`scan-item ${i > 0 ? 'scan-item-border' : ''}`}>
               <div className="scan-item-main">
                 <span className="scan-data">{scan.data}</span>
-                <span className="scan-count">x{scan.count}</span>
+                <span className="scan-count">{scan.count}</span>
               </div>
-              <div className="scan-item-meta">
-                <span className="scan-symbology">{scan.symbology}</span>
-                <span className="scan-time">last: {formatTime(scan.lastSeen)}</span>
-              </div>
+              <div className="scan-symbology">{scan.symbology}</div>
             </div>
           ))
         )}
@@ -151,38 +127,15 @@ function RfidPanel() {
   const tagList = Array.from(tags.values())
     .sort((a, b) => b.lastSeen.getTime() - a.lastSeen.getTime());
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit',
-      hour12: false 
-    });
-  };
-
   return (
     <div className="rfid-panel">
-      <div className="rfid-header">
-        <div className="rfid-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4" />
-            <path d="M5 19.5C5.5 18 6 15 6 12c0-2 .5-4 1.5-5.5" />
-            <path d="M8.5 22c.5-1.5 1-4 1-7" />
-            <circle cx="12" cy="12" r="2" />
-            <path d="M18 12h.01" />
-            <path d="M22 12a10 10 0 0 1-4 8" />
-          </svg>
-        </div>
-        <span>RFID Inventory</span>
-      </div>
-
       <div className="rfid-controls">
         <button 
           className={`inventory-btn ${isInventoryActive ? 'active' : ''}`}
           onClick={() => isInventoryActive ? stopInventory() : startInventory()}
           disabled={!isConnected}
         >
-          {isInventoryActive ? 'Stop Inventory' : 'Start Inventory'}
+          {isInventoryActive ? 'Stop' : 'Start'} Inventory
         </button>
         {tags.size > 0 && (
           <button className="clear-btn" onClick={clearTags}>Clear</button>
@@ -190,26 +143,24 @@ function RfidPanel() {
       </div>
 
       <div className="rfid-summary">
-        <span>{tags.size} unique tags</span>
+        <span className="rfid-summary-title">RFID Tags</span>
+        <span>{tags.size} unique</span>
       </div>
 
       <div className="tag-list">
         {tagList.length === 0 ? (
           <div className="empty-state">
             <p>No tags read</p>
-            <p className="hint">Start inventory and bring tags near the reader</p>
+            <p className="hint">Start inventory and bring tags near</p>
           </div>
         ) : (
-          tagList.map((tag) => (
-            <div key={tag.epc} className="tag-item">
+          tagList.map((tag, i) => (
+            <div key={tag.epc} className={`tag-item ${i > 0 ? 'tag-item-border' : ''}`}>
               <div className="tag-item-main">
                 <span className="tag-epc">{tag.epc}</span>
-                <span className="tag-count">x{tag.readCount}</span>
+                <span className="tag-count">{tag.readCount}</span>
               </div>
-              <div className="tag-item-meta">
-                <span className="tag-rssi">RSSI: {tag.rssi} dBm</span>
-                <span className="tag-time">last: {formatTime(tag.lastSeen)}</span>
-              </div>
+              <div className="tag-rssi">{tag.rssi} dBm</div>
             </div>
           ))
         )}
